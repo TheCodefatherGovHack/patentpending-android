@@ -1,35 +1,39 @@
 package govhack.thecodefather.patentpending.data.models;
 
 import android.support.annotation.NonNull;
+
 import com.google.common.base.Predicate;
 import com.google.common.collect.FluentIterable;
 import com.google.common.collect.ImmutableList;
 import com.google.common.collect.Ordering;
 import com.google.gson.annotations.SerializedName;
+
+import java.util.List;
+
+import javax.annotation.Nullable;
+
 import govhack.thecodefather.patentpending.data.enums.PatentType;
 import govhack.thecodefather.patentpending.utility.ValidationUtililty;
-import java.util.List;
-import javax.annotation.Nullable;
 import lombok.Getter;
 import lombok.val;
 
-/**
- * Created by andrewkevin on 29/7/17.
- */
-
+/** Created by andrewkevin on 29/7/17. */
 public class PatentDataModel {
-
   @Getter
   @SerializedName("tradeMarkNumber")
   private Integer tradeMarkNumber;
+
   @Getter
   @SerializedName("title")
   private String title;
+
   @SerializedName("type")
   private PatentType patentType;
+
   @SerializedName("applicantName")
   @Getter
   private String applicantName;
+
   @SerializedName("stages")
   private List<StageDataModel> stages;
 
@@ -47,11 +51,13 @@ public class PatentDataModel {
   @NonNull
   public StageDataModel getCurrentStage() {
     return FluentIterable.from(getStages())
-        .firstMatch(new Predicate<StageDataModel>() {
-          @Override
-          public boolean apply(@Nullable StageDataModel input) {
-            return input.getFinished() == null;
-          }
-        }).get();
+        .firstMatch(
+            new Predicate<StageDataModel>() {
+              @Override
+              public boolean apply(@Nullable StageDataModel input) {
+                return input.getFinished() == null;
+              }
+            })
+        .get();
   }
 }

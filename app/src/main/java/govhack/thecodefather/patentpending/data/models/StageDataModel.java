@@ -3,16 +3,19 @@ package govhack.thecodefather.patentpending.data.models;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.text.TextUtils;
+
 import com.google.gson.annotations.SerializedName;
+
+import org.joda.time.DateTime;
+
 import govhack.thecodefather.patentpending.data.enums.StageName;
 import govhack.thecodefather.patentpending.utility.ValidationUtililty;
 import lombok.Getter;
-import org.joda.time.DateTime;
 
 /**
  * Created by andrewkevin on 29/7/17.
  */
-class StageDataModel implements Comparable<StageDataModel> {
+public class StageDataModel implements Comparable<StageDataModel> {
 
   @SerializedName("stageName")
   private StageName stageName;

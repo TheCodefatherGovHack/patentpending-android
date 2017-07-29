@@ -51,7 +51,7 @@
                     android:layout_alignParentLeft="true"
                     android:background="@drawable/status_background_green"
                     android:maxLines="1"
-                    android:text="Status"
+                    android:text="Stage"
                     android:textAllCaps="true"
                     android:textColor="@color/white"
                     android:textSize="18sp" />
