@@ -8,6 +8,8 @@ import govhack.thecodefather.patentpending.data.GsonSerialisable;
  */
 
 public enum StageName implements GsonSerialisable {
+  @SerializedName("expired")
+  EXPIRED,
   @SerializedName("filed")
   FILED,
   @SerializedName("waitingForExamination")
@@ -18,6 +20,5 @@ public enum StageName implements GsonSerialisable {
   ACCEPTANCE_AND_OPPOSITION_PHASE,
   @SerializedName("registered")
   REGISTERED,
-  @SerializedName("expired")
-  EXPIRED,
+  UNKNOWN_STAGE_NAME
 }

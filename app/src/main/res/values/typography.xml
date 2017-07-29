@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <style name="TypographyHeading">
+    <item name="android:textSize">18dp</item>
+    <item name="fontPath">@string/font_path_open_sans_regular</item>
+  </style>
+</resources>

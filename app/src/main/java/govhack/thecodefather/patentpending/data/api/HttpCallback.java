@@ -83,6 +83,7 @@ public abstract class HttpCallback<T> implements Callback<T> {
     } else {
       throw new UnsupportedOperationException();
     }
+    always();
   }
 
   void handle2xx(Call<T> call, Response<T> response) {
@@ -105,6 +106,8 @@ public abstract class HttpCallback<T> implements Callback<T> {
     logError(response);
     onError(call, response);
   }
+
+  protected void always() {};
 
   void logError(Response<T> response) {
     try {
