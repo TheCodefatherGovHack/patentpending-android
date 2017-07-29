@@ -12,18 +12,19 @@ import govhack.thecodefather.patentpending.data.enums.StageName;
 import govhack.thecodefather.patentpending.utility.ValidationUtililty;
 import lombok.Getter;
 
-/**
- * Created by andrewkevin on 29/7/17.
- */
+/** Created by andrewkevin on 29/7/17. */
 public class StageDataModel implements Comparable<StageDataModel> {
 
   @SerializedName("stageName")
   private StageName stageName;
+
   @Getter
   @SerializedName("finished")
   private Boolean finished;
+
   @SerializedName("dateFinished")
   private String dateFinished;
+
   @SerializedName("estimatedDateOfFinish")
   private String estimatedDateOfFinish;
 
@@ -48,7 +49,7 @@ public class StageDataModel implements Comparable<StageDataModel> {
       return dateFinished.compareTo(stageDataModel.dateFinished);
     } else if (!finished && !stageDataModel.finished) {
       return estimatedDateOfFinish.compareTo(estimatedDateOfFinish);
-    } else if (finished){
+    } else if (finished) {
       // finished and !stageDataModel.finished
       return -1;
     } else {
