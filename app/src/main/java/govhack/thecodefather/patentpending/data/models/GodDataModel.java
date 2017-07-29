@@ -15,10 +15,10 @@ import lombok.Getter;
 @Getter
 public class GodDataModel {
 
-  @SerializedName("message")
-  private List<PatentDataModel> patents;
+    @SerializedName("message")
+    private List<PatentDataModel> patents;
 
-  public ImmutableList<PatentDataModel> getPatents() {
-    return ValidationUtililty.asImmutable(patents);
-  }
+    public ImmutableList<PatentDataModel> getPatents() {
+        return ValidationUtililty.asImmutable(patents);
+    }
 }

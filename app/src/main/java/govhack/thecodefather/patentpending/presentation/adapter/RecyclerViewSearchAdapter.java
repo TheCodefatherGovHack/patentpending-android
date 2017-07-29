@@ -1,5 +1,6 @@
 package govhack.thecodefather.patentpending.presentation.adapter;
 
+import android.support.annotation.Nullable;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -49,9 +50,11 @@ public class RecyclerViewSearchAdapter extends RecyclerView.Adapter<RecyclerView
         super.onAttachedToRecyclerView(recyclerView);
     }
 
-    public void updatePatents(ImmutableList<PatentDataModel> newPatents) {
+    public void updatePatents(@Nullable ImmutableList<PatentDataModel> newPatents) {
         patents.clear();
-        patents.addAll(newPatents);
+        if (null != newPatents && !newPatents.isEmpty()) {
+            patents.addAll(newPatents);
+        }
         notifyDataSetChanged();
     }
 
