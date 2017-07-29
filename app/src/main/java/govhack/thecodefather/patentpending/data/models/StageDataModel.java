@@ -4,7 +4,7 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.text.TextUtils;
 import com.google.gson.annotations.SerializedName;
-import govhack.thecodefather.patentpending.data.enums.StageName;
+import govhack.thecodefather.patentpending.data.enums.PatentStage;
 import govhack.thecodefather.patentpending.utility.ValidationUtililty;
 import lombok.Getter;
 import org.joda.time.DateTime;
@@ -12,21 +12,21 @@ import org.joda.time.DateTime;
 /**
  * Created by andrewkevin on 29/7/17.
  */
-class StageDataModel implements Comparable<StageDataModel> {
+public class StageDataModel implements Comparable<StageDataModel> {
 
   @SerializedName("stageName")
-  private StageName stageName;
+  private PatentStage patentStage;
   @Getter
   @SerializedName("finished")
-  private Boolean finished;
+  private boolean finished;
   @SerializedName("dateFinished")
   private String dateFinished;
   @SerializedName("estimatedDateOfFinish")
   private String estimatedDateOfFinish;
 
   @NonNull
-  public StageName getStageName() {
-    return ValidationUtililty.withDefault(stageName, StageName.UNKNOWN_STAGE_NAME);
+  public PatentStage getStage() {
+    return ValidationUtililty.withDefault(patentStage, PatentStage.UNKNOWN_STAGE_NAME);
   }
 
   @Nullable

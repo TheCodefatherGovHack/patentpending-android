@@ -9,5 +9,5 @@ import android.support.annotation.NonNull;
 public class Config {
 
   @NonNull
-  public final static String patentPendingBaseUrl = "https://zn15gj5is6.execute-api.us-east-1.amazonaws.com/dev/";
+  public final static String patentPendingBaseUrl = "https://u4glfgeg1l.execute-api.ap-southeast-2.amazonaws.com";
 }

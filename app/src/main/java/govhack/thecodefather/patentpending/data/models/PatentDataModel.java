@@ -1,15 +1,17 @@
 package govhack.thecodefather.patentpending.data.models;
 
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import com.google.common.base.Predicate;
 import com.google.common.collect.FluentIterable;
 import com.google.common.collect.ImmutableList;
 import com.google.common.collect.Ordering;
 import com.google.gson.annotations.SerializedName;
+import govhack.thecodefather.patentpending.data.enums.PatentStage;
 import govhack.thecodefather.patentpending.data.enums.PatentType;
+import govhack.thecodefather.patentpending.utility.FormatterUtility;
 import govhack.thecodefather.patentpending.utility.ValidationUtililty;
 import java.util.List;
-import javax.annotation.Nullable;
 import lombok.Getter;
 import lombok.val;
 
@@ -22,6 +24,9 @@ public class PatentDataModel {
   @Getter
   @SerializedName("tradeMarkNumber")
   private Integer tradeMarkNumber;
+  @Getter
+  @SerializedName("australianApplicationNumber")
+  private String australianApplicationNumber;
   @Getter
   @SerializedName("title")
   private String title;
@@ -45,13 +50,48 @@ public class PatentDataModel {
   }
 
   @NonNull
-  public StageDataModel getCurrentStage() {
+  public StageDataModel getCurrentStageModel() {
     return FluentIterable.from(getStages())
         .firstMatch(new Predicate<StageDataModel>() {
           @Override
-          public boolean apply(@Nullable StageDataModel input) {
-            return input.getFinished() == null;
+          public boolean apply(@javax.annotation.Nullable StageDataModel input) {
+            return input != null && input.getDateFinished() == null;
           }
         }).get();
+  }
+
+  @NonNull
+  public PatentStage getCurrentStage() {
+    return getCurrentStageModel().getStage();
+  }
+
+  public boolean hasNextStage() {
+    return getCurrentStage().hasNextStage();
+  }
+
+  @Nullable
+  public StageDataModel getNextStageModel() {
+    return FluentIterable.from(stages)
+        .firstMatch(new Predicate<StageDataModel>() {
+          @Override
+          public boolean apply(@javax.annotation.Nullable StageDataModel input) {
+            return input != null
+                && hasNextStage()
+                && input.getStage() == getCurrentStage().nextStage();
+          }
+        }).orNull();
+  }
+
+  @NonNull
+  public String nextStageDisplayString() {
+    if (hasNextStage()) {
+      val nextStageModel = getNextStageModel();
+      assert nextStageModel != null;
+      assert nextStageModel.getEstimatedDateOfFinish() != null;
+      return FormatterUtility.formatNextStageApproval(nextStageModel.getStage(),
+          nextStageModel.getEstimatedDateOfFinish());
+    } else {
+      return "";
+    }
   }
 }

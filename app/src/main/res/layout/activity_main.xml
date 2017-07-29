@@ -4,12 +4,14 @@
   android:id="@+id/root_view"
   android:layout_width="match_parent"
   android:layout_height="match_parent"
+  android:background="#efefef"
   tools:context="govhack.thecodefather.patentpending.presentation.MainActivity">
 
   <android.support.v7.widget.RecyclerView
     android:id="@+id/rvSearchResults"
     android:layout_width="match_parent"
-    android:layout_height="match_parent" />
+    android:layout_height="match_parent"
+    android:padding="4dp" />
 
   <FrameLayout
     android:id="@+id/progress_overlay"

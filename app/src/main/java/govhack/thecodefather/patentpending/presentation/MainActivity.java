@@ -86,7 +86,8 @@ public class MainActivity extends ActivityBase {
       ApiClientFactory.getPatentPending().getGod(query).enqueue(new HttpCallback<GodDataModel>() {
         @Override
         public void onSuccess(Call<GodDataModel> call, Response<GodDataModel> response) {
-          updatePatents(response.body().getPatents());
+          val patentDataModels = getPayload().getPatents();
+          updatePatents(patentDataModels);
         }
 
         @Override

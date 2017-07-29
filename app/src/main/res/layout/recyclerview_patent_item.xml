@@ -1,74 +1,78 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content">
+  android:layout_width="wrap_content"
+  android:layout_height="wrap_content">
 
-    <android.support.v7.widget.CardView
-        android:id="@+id/cvPatent"
+  <android.support.v7.widget.CardView
+    android:id="@+id/cvPatent"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginTop="@dimen/card_vertical_spacing"
+    android:layout_marginBottom="@dimen/card_vertical_spacing"
+    android:layout_marginStart="@dimen/card_horizontal_spacing"
+    android:layout_marginEnd="@dimen/card_horizontal_spacing"
+    android:layout_marginLeft="@dimen/card_horizontal_spacing"
+    android:layout_marginRight="@dimen/card_horizontal_spacing">
+
+    <RelativeLayout
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:padding="16dp">
+
+      <LinearLayout
+        android:id="@+id/rvPatentTitle"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/spacing_vertical"
+        android:gravity="center_vertical">
 
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@drawable/gradient_recyclerview_patent_item"
-            android:padding="16dp">
+        <ImageView
+          android:id="@+id/ivNotification"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:layout_marginEnd="@dimen/spacing_horizontal"
+          android:src="@drawable/ic_notifications_black_18dp"
+          android:tint="@color/orange"
+          android:visibility="gone" />
 
-            <RelativeLayout
-                android:id="@+id/rvPatentTitle"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+        <TextView
+          android:id="@+id/tvPatentTitle"
+          style="@style/TypographyHeading"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:text="Donkey Kong" />
+      </LinearLayout>
 
-                <ImageView
-                    android:id="@+id/imageView"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:src="@drawable/ic_alert"
-                    android:tint="@color/orange" />
+      <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/rvPatentTitle">
 
-                <TextView
-                    android:id="@+id/tvPatentTitle"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignBottom="@+id/imageView"
-                    android:layout_marginStart="5dp"
-                    android:layout_toEndOf="@+id/imageView"
-                    android:text="Donkey Kong"
-                    android:textAllCaps="true"
-                    android:textSize="22sp" />
-            </RelativeLayout>
+        <TextView
+          android:id="@+id/tvPatentStatus"
+          style="@style/TypographyLabel"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:paddingLeft="@dimen/spacing_horizontal"
+          android:paddingRight="@dimen/spacing_horizontal"
+          android:background="@drawable/status_background_green"
+          android:maxLines="1"
+          android:text="Status"
+          android:textColor="@color/white" />
 
-            <RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_below="@+id/rvPatentTitle"
-                android:layout_marginTop="5dp">
-
-                <TextView
-                    android:id="@+id/tvPatentStatus"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentLeft="true"
-                    android:background="@drawable/status_background_green"
-                    android:maxLines="1"
-                    android:text="Status"
-                    android:textAllCaps="true"
-                    android:textColor="@color/white"
-                    android:textSize="18sp" />
-
-                <TextView
-                    android:id="@+id/tvPatentNextEvent"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentEnd="true"
-                    android:layout_centerVertical="true"
-                    android:text="Next event"
-                    android:textSize="12sp" />
-            </RelativeLayout>
+        <TextView
+          android:id="@+id/tvPatentNextStage"
+          style="@style/TypographyDisplay1"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:layout_alignParentEnd="true"
+          android:layout_centerVertical="true"
+          android:text="Next event" />
+      </RelativeLayout>
 
 
-        </RelativeLayout>
+    </RelativeLayout>
 
-    </android.support.v7.widget.CardView>
+  </android.support.v7.widget.CardView>
 
 </LinearLayout>
