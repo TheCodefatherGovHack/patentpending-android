@@ -5,15 +5,17 @@ import android.support.v7.widget.RecyclerView;
 
 import org.androidannotations.annotations.AfterViews;
 import org.androidannotations.annotations.EActivity;
+import org.androidannotations.annotations.Fullscreen;
 import org.androidannotations.annotations.ViewById;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import govhack.thecodefather.patentpending.R;
-import govhack.thecodefather.patentpending.data.models.MessageDataModel;
+import govhack.thecodefather.patentpending.data.models.PatentDataModel;
 import govhack.thecodefather.patentpending.presentation.adapter.RecyclerViewSearchAdapter;
 
+@Fullscreen
 @EActivity(R.layout.activity_main)
 public class MainActivity extends AppCompatActivity {
 
@@ -25,7 +27,7 @@ public class MainActivity extends AppCompatActivity {
     @AfterViews
     void initMessagesList() {
 
-        List<MessageDataModel> messages = new ArrayList<>();
+        List<PatentDataModel> messages = new ArrayList<>();
 
         rvSearchAdapter = new RecyclerViewSearchAdapter(messages);
         rvSearchResults.setAdapter(rvSearchAdapter);

@@ -1,7 +1,10 @@
 package govhack.thecodefather.patentpending.data.models;
 
 import com.google.gson.annotations.SerializedName;
+
 import java.util.List;
+
+import govhack.thecodefather.patentpending.data.enums.PatentType;
 import lombok.Getter;
 
 /**
@@ -9,13 +12,13 @@ import lombok.Getter;
  */
 
 @Getter
-public class MessageDataModel {
-  @SerializedName("applicationId")
-  private Integer applicationId;
+public class PatentDataModel {
+  @SerializedName("tradeMarkNumber")
+  private Integer tradeMarkNumber;
   @SerializedName("title")
   private String title;
   @SerializedName("type")
-  private String type;
+  private PatentType patentType;
   @SerializedName("applicantName")
   private String applicantName;
   @SerializedName("stages")

@@ -1,6 +1,9 @@
 package govhack.thecodefather.patentpending.data.models;
 
 import com.google.gson.annotations.SerializedName;
+
+import org.joda.time.DateTime;
+
 import govhack.thecodefather.patentpending.data.enums.StageName;
 import lombok.Getter;
 
@@ -14,7 +17,7 @@ class StageDataModel {
   @SerializedName("finished")
   private Boolean finished;
   @SerializedName("dateFinished")
-  private String dateFinished;
+  private DateTime dateFinished;
   @SerializedName("estimatedDateOfFinish")
   private String estimatedDateOfFinish;
 }

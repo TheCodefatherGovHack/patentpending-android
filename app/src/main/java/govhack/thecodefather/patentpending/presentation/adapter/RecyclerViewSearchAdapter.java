@@ -10,7 +10,7 @@ import android.widget.TextView;
 import java.util.List;
 
 import govhack.thecodefather.patentpending.R;
-import govhack.thecodefather.patentpending.data.models.MessageDataModel;
+import govhack.thecodefather.patentpending.data.models.PatentDataModel;
 
 /**
  * Created by Alberto Camillo on 29/7/17.
@@ -18,9 +18,9 @@ import govhack.thecodefather.patentpending.data.models.MessageDataModel;
 
 public class RecyclerViewSearchAdapter extends RecyclerView.Adapter<RecyclerViewSearchAdapter.PatentViewHolder> {
 
-    List<MessageDataModel> messages;
+    List<PatentDataModel> messages;
 
-    public RecyclerViewSearchAdapter(List<MessageDataModel> messages) {
+    public RecyclerViewSearchAdapter(List<PatentDataModel> messages) {
         this.messages = messages;
     }
 
@@ -34,7 +34,7 @@ public class RecyclerViewSearchAdapter extends RecyclerView.Adapter<RecyclerView
     @Override
     public void onBindViewHolder(PatentViewHolder holder, int position) {
         holder.tvPatentTitle.setText(messages.get(position).getTitle());
-        holder.tvPatentStatus.setText(messages.get(position).getType());
+        holder.tvPatentStatus.setText(messages.get(position).getTitle());
     }
 
     @Override
