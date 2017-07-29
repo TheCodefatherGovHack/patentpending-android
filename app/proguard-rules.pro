@@ -23,3 +23,33 @@
 # If you keep the line number information, uncomment this to
 # hide the original source file name.
 #-renamesourcefileattribute SourceFile
+
+# keep GsonSerializable interface, it would be thrown away by proguard since it is empty
+-keep interface govhack.thecodefather.data.models.GsonSerialisable
+# Ensure we keep member names of classes implementing GsonSerialisable
+-keepclassmembers enum * implements govhack.thecodefather.data.models.GsonSerialisable {
+    <fields>;
+}
+
+# We only want obfuscation
+-keepattributes InnerClasses
+-keepattributes Signature
+-keepattributes Exceptions
+-keepattributes *Annotation*
+-keepattributes EnclosingMethod
+
+# Retrofit 2.X
+## https://square.github.io/retrofit/ ##
+-dontwarn retrofit2.**
+-keep class retrofit2.** { *; }
+-keepattributes Signature
+-keepattributes Exceptions
+
+-keepclasseswithmembers class * {
+    @retrofit2.http.* <methods>;
+}
+
+## joda-time-android 2.8.0
+# This is only necessary if you are not including the optional joda-convert dependency
+-dontwarn org.joda.convert.FromString
+-dontwarn org.joda.convert.ToString
