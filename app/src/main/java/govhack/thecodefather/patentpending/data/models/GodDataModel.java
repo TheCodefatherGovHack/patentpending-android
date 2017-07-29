@@ -14,9 +14,9 @@ import lombok.Getter;
 public class GodDataModel {
 
   @SerializedName("message")
-  private List<PatentDataModel> messages;
+  private List<PatentDataModel> patents;
 
-  public ImmutableList<PatentDataModel> getMessages () {
-    return ValidationUtililty.asImmutable(messages);
+  public ImmutableList<PatentDataModel> getPatents () {
+    return ValidationUtililty.asImmutable(patents);
   }
 }
