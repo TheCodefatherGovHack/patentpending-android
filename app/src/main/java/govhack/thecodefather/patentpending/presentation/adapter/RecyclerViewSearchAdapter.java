@@ -7,6 +7,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import com.google.common.collect.ImmutableList;
+
 import java.util.List;
 
 import govhack.thecodefather.patentpending.R;
@@ -18,10 +20,10 @@ import govhack.thecodefather.patentpending.data.models.PatentDataModel;
 
 public class RecyclerViewSearchAdapter extends RecyclerView.Adapter<RecyclerViewSearchAdapter.PatentViewHolder> {
 
-    List<PatentDataModel> messages;
+    List<PatentDataModel> patents;
 
-    public RecyclerViewSearchAdapter(List<PatentDataModel> messages) {
-        this.messages = messages;
+    public RecyclerViewSearchAdapter(List<PatentDataModel> patents) {
+        this.patents = patents;
     }
 
     @Override
@@ -33,18 +35,24 @@ public class RecyclerViewSearchAdapter extends RecyclerView.Adapter<RecyclerView
 
     @Override
     public void onBindViewHolder(PatentViewHolder holder, int position) {
-        holder.tvPatentTitle.setText(messages.get(position).getTitle());
-        holder.tvPatentStatus.setText(messages.get(position).getTitle());
+        holder.tvPatentTitle.setText(patents.get(position).getTitle());
+        holder.tvPatentStatus.setText(patents.get(position).getTitle());
     }
 
     @Override
     public int getItemCount() {
-        return messages.size();
+        return patents.size();
     }
 
     @Override
     public void onAttachedToRecyclerView(RecyclerView recyclerView) {
         super.onAttachedToRecyclerView(recyclerView);
+    }
+
+    public void updatePatents(ImmutableList<PatentDataModel> newPatents) {
+        patents.clear();
+        patents.addAll(newPatents);
+        notifyDataSetChanged();
     }
 
     public static class PatentViewHolder extends RecyclerView.ViewHolder {
