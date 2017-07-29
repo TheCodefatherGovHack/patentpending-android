@@ -5,19 +5,16 @@
 
   <android.support.v7.widget.CardView
     android:id="@+id/cvPatent"
+    style="@style/card"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:layout_marginTop="@dimen/card_vertical_spacing"
-    android:layout_marginBottom="@dimen/card_vertical_spacing"
-    android:layout_marginStart="@dimen/card_horizontal_spacing"
-    android:layout_marginEnd="@dimen/card_horizontal_spacing"
-    android:layout_marginLeft="@dimen/card_horizontal_spacing"
-    android:layout_marginRight="@dimen/card_horizontal_spacing">
+    android:layout_height="wrap_content">
 
     <RelativeLayout
       android:layout_width="match_parent"
       android:layout_height="wrap_content"
-      android:padding="16dp">
+      android:padding="16dp"
+      android:clipChildren="false"
+      android:clipToPadding="false">
 
       <LinearLayout
         android:id="@+id/rvPatentTitle"
@@ -40,7 +37,15 @@
           style="@style/TypographyHeading"
           android:layout_width="wrap_content"
           android:layout_height="wrap_content"
+          android:layout_weight="1"
           android:text="Donkey Kong" />
+
+        <ImageButton
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:background="@android:color/transparent"
+          android:src="@drawable/ic_more_vert_black_18dp"
+          android:translationX="@dimen/spacing_horizontal" />
       </LinearLayout>
 
       <RelativeLayout

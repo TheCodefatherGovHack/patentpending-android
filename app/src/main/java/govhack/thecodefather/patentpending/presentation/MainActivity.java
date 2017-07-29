@@ -15,10 +15,14 @@ import android.view.View;
 import android.widget.FrameLayout;
 import com.google.common.collect.ImmutableList;
 import govhack.thecodefather.patentpending.R;
-import govhack.thecodefather.patentpending.data.api.ApiClientFactory;
+import govhack.thecodefather.patentpending.data.api.ErrorResponse;
 import govhack.thecodefather.patentpending.data.api.HttpCallback;
+import govhack.thecodefather.patentpending.data.api.HttpCallback2;
+import govhack.thecodefather.patentpending.data.api.PatentPendingApiClient;
+import govhack.thecodefather.patentpending.data.models.ErrorDataModel;
 import govhack.thecodefather.patentpending.data.models.GodDataModel;
 import govhack.thecodefather.patentpending.data.models.PatentDataModel;
+import govhack.thecodefather.patentpending.data.models.SuccessDataModel;
 import govhack.thecodefather.patentpending.presentation.adapter.RecyclerViewSearchAdapter;
 import java.util.ArrayList;
 import java.util.List;
@@ -83,7 +87,7 @@ public class MainActivity extends ActivityBase {
   void submitSearchRequest(@Nullable String query) {
     if (!TextUtils.isEmpty(query)) {
       isProgressOverlayVisible(true);
-      ApiClientFactory.getPatentPending().getGod(query).enqueue(new HttpCallback<GodDataModel>() {
+      PatentPendingApiClient.searchPatents(query, new HttpCallback<GodDataModel>() {
         @Override
         public void onSuccess(Call<GodDataModel> call, Response<GodDataModel> response) {
           val patentDataModels = getPayload().getPatents();

@@ -23,7 +23,7 @@ public class PatentDataModel {
 
   @Getter
   @SerializedName("tradeMarkNumber")
-  private Integer tradeMarkNumber;
+  private int tradeMarkNumber;
   @Getter
   @SerializedName("australianApplicationNumber")
   private String australianApplicationNumber;

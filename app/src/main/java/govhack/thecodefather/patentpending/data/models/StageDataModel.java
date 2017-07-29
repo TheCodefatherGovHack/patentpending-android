@@ -29,6 +29,14 @@ public class StageDataModel implements Comparable<StageDataModel> {
     return ValidationUtililty.withDefault(patentStage, PatentStage.UNKNOWN_STAGE_NAME);
   }
 
+  public String getDateFinishedRaw() {
+    return dateFinished;
+  }
+
+  public String getEstimatedDateOfFinishRaw() {
+    return estimatedDateOfFinish;
+  }
+
   @Nullable
   public DateTime getDateFinished() {
     return TextUtils.isEmpty(dateFinished) ? null : DateTime.parse(dateFinished);

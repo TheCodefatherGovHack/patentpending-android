@@ -1,6 +1,7 @@
 package govhack.thecodefather.patentpending.data.api;
 
 import govhack.thecodefather.patentpending.data.models.GodDataModel;
+import govhack.thecodefather.patentpending.data.models.SuccessDataModel;
 import okhttp3.RequestBody;
 import retrofit2.Call;
 import retrofit2.http.Body;
@@ -18,5 +19,5 @@ public interface PatentPendingApi {
   Call<GodDataModel> getGod(@Query("query") String query);
 
   @POST("/dev/notify")
-  Call<Void> registerForNotification(@Body RequestBody requestBody);
+  Call<SuccessDataModel> registerForNotification(@Body RequestBody requestBody);
 }
