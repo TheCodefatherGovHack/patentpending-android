@@ -3,7 +3,6 @@ package govhack.thecodefather.patentpending.presentation;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.design.widget.CoordinatorLayout;
-import android.support.design.widget.Snackbar;
 import android.support.v4.view.MenuItemCompat;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -15,14 +14,10 @@ import android.view.View;
 import android.widget.FrameLayout;
 import com.google.common.collect.ImmutableList;
 import govhack.thecodefather.patentpending.R;
-import govhack.thecodefather.patentpending.data.api.ErrorResponse;
 import govhack.thecodefather.patentpending.data.api.HttpCallback;
-import govhack.thecodefather.patentpending.data.api.HttpCallback2;
 import govhack.thecodefather.patentpending.data.api.PatentPendingApiClient;
-import govhack.thecodefather.patentpending.data.models.ErrorDataModel;
 import govhack.thecodefather.patentpending.data.models.GodDataModel;
 import govhack.thecodefather.patentpending.data.models.PatentDataModel;
-import govhack.thecodefather.patentpending.data.models.SuccessDataModel;
 import govhack.thecodefather.patentpending.presentation.adapter.RecyclerViewSearchAdapter;
 import java.util.ArrayList;
 import java.util.List;
@@ -125,15 +120,7 @@ public class MainActivity extends ActivityBase {
     rvSearchAdapter.updatePatents(patents);
   }
 
-  @UiThread
-  void showSnackbar(@NonNull String s) {
-    showSnackbar(s, Snackbar.LENGTH_LONG);
+  public void showSnackbar(@NonNull String s) {
+    showSnackbar(rootView, s);
   }
-
-  @UiThread
-  void showSnackbar(@NonNull String s, int duration) {
-    Snackbar snackbar = Snackbar.make(rootView, s, duration);
-    snackbar.show();
-  }
-
 }
