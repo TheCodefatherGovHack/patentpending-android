@@ -2,8 +2,10 @@ package govhack.thecodefather.patentpending.data.models;
 
 import com.google.common.collect.ImmutableList;
 import com.google.gson.annotations.SerializedName;
-import govhack.thecodefather.patentpending.utility.ValidationUtililty;
+
 import java.util.List;
+
+import govhack.thecodefather.patentpending.utility.ValidationUtililty;
 import lombok.Getter;
 
 /**
@@ -13,10 +15,10 @@ import lombok.Getter;
 @Getter
 public class GodDataModel {
 
-  @SerializedName("message")
-  private List<PatentDataModel> patents;
+    @SerializedName("message")
+    private List<PatentDataModel> patents;
 
-  public ImmutableList<PatentDataModel> getPatents () {
-    return ValidationUtililty.asImmutable(patents);
-  }
+    public ImmutableList<PatentDataModel> getPatents() {
+        return ValidationUtililty.asImmutable(patents);
+    }
 }

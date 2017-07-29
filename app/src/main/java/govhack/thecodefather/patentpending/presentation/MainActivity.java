@@ -1,23 +1,30 @@
 package govhack.thecodefather.patentpending.presentation;
 
-import static android.support.design.widget.Snackbar.make;
-
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.design.widget.CoordinatorLayout;
 import android.support.design.widget.Snackbar;
 import android.support.v4.view.MenuItemCompat;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.SearchView;
 import android.text.TextUtils;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.FrameLayout;
+import com.google.common.collect.ImmutableList;
 import govhack.thecodefather.patentpending.R;
 import govhack.thecodefather.patentpending.data.api.ApiClientFactory;
 import govhack.thecodefather.patentpending.data.api.HttpCallback;
 import govhack.thecodefather.patentpending.data.models.GodDataModel;
+import govhack.thecodefather.patentpending.data.models.PatentDataModel;
+import govhack.thecodefather.patentpending.presentation.adapter.RecyclerViewSearchAdapter;
+import java.util.ArrayList;
+import java.util.List;
 import lombok.val;
+import org.androidannotations.annotations.AfterViews;
+import org.androidannotations.annotations.Background;
 import org.androidannotations.annotations.EActivity;
 import org.androidannotations.annotations.Fullscreen;
 import org.androidannotations.annotations.UiThread;
@@ -33,6 +40,10 @@ public class MainActivity extends ActivityBase {
   CoordinatorLayout rootView;
   @ViewById(R.id.progress_overlay)
   FrameLayout progressOverlay;
+  @ViewById
+  RecyclerView rvSearchResults;
+  private RecyclerViewSearchAdapter rvSearchAdapter;
+  private List<PatentDataModel> mPatents = new ArrayList<>();
 
   @Override
   public boolean onCreateOptionsMenu(Menu menu) {
@@ -59,13 +70,23 @@ public class MainActivity extends ActivityBase {
     return super.onCreateOptionsMenu(menu);
   }
 
-  private void submitSearchRequest(@Nullable String query) {
+  @AfterViews
+  void initPatentsList() {
+    rvSearchAdapter = new RecyclerViewSearchAdapter(mPatents);
+    rvSearchResults.setAdapter(rvSearchAdapter);
+    rvSearchResults.setLayoutManager(new LinearLayoutManager(this));
+    submitSearchRequest("");
+
+  }
+
+  @Background
+  void submitSearchRequest(@Nullable String query) {
     if (!TextUtils.isEmpty(query)) {
       isProgressOverlayVisible(true);
       ApiClientFactory.getPatentPending().getGod(query).enqueue(new HttpCallback<GodDataModel>() {
         @Override
         public void onSuccess(Call<GodDataModel> call, Response<GodDataModel> response) {
-          // TODO update recycler view
+          updatePatents(response.body().getPatents());
         }
 
         @Override
@@ -83,6 +104,8 @@ public class MainActivity extends ActivityBase {
           isProgressOverlayVisible(false);
         }
       });
+    } else {
+      updatePatents(null);
     }
   }
 
@@ -91,12 +114,21 @@ public class MainActivity extends ActivityBase {
     progressOverlay.setVisibility(b ? View.VISIBLE : View.GONE);
   }
 
-  private void showSnackbar(@NonNull String s) {
+
+  @UiThread
+  void updatePatents(@Nullable ImmutableList<PatentDataModel> patents) {
+    rvSearchAdapter.updatePatents(patents);
+  }
+
+  @UiThread
+  void showSnackbar(@NonNull String s) {
     showSnackbar(s, Snackbar.LENGTH_LONG);
   }
 
-  private void showSnackbar(@NonNull String s, int duration) {
-    Snackbar snackbar = make(rootView, s, duration);
+  @UiThread
+  void showSnackbar(@NonNull String s, int duration) {
+    Snackbar snackbar = Snackbar.make(rootView, s, duration);
     snackbar.show();
   }
+
 }
