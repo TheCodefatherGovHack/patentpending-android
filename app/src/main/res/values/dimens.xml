@@ -5,5 +5,5 @@
 
   <dimen name="card_vertical_spacing">2.5dp</dimen>
   <dimen name="card_horizontal_spacing">4dp</dimen>
-  <dimen name="card_corner_radius">2dp</dimen>
+  <dimen name="card_corner_radius">2.5dp</dimen>
 </resources>

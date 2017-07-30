@@ -1,7 +1,9 @@
 package govhack.thecodefather.patentpending.data.enums;
 
+import android.support.annotation.ColorRes;
 import android.support.annotation.Nullable;
 import com.google.gson.annotations.SerializedName;
+import govhack.thecodefather.patentpending.R;
 import govhack.thecodefather.patentpending.data.GsonSerialisable;
 
 /**
@@ -43,5 +45,25 @@ public enum PatentStage implements GsonSerialisable {
 
   public boolean isUnknown() {
     return this == UNKNOWN_STAGE_NAME;
+  }
+
+  @ColorRes
+  public int getColorResId() {
+    switch (this) {
+      case FILED:
+        return R.color.green5;
+      case WAITING_FOR_CONFIRMATION:
+        return R.color.green4;
+      case BEING_EXAMINED:
+        return R.color.green3;
+      case ACCEPTANCE_AND_OPPOSITION_PHASE:
+        return R.color.green2;
+      case REGISTERED:
+        return R.color.green;
+      case EXPIRED:
+        return R.color.greyLight;
+      default:
+        return R.color.white;
+    }
   }
 }

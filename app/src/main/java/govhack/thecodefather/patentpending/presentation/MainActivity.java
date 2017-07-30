@@ -79,7 +79,7 @@ public class MainActivity extends ActivityBase {
 
     @AfterViews
     void initPatentsList() {
-        rvSearchAdapter = new RecyclerViewSearchAdapter(mPatents);
+        rvSearchAdapter = new RecyclerViewSearchAdapter(mPatents, this);
         rvSearchResults.setAdapter(rvSearchAdapter);
         rvSearchResults.setLayoutManager(new LinearLayoutManager(this));
         submitSearchRequest("");

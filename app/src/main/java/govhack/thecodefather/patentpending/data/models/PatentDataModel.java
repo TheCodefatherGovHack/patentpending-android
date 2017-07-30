@@ -23,6 +23,10 @@ import lombok.val;
  */
 public class PatentDataModel {
     @Getter
+    @SerializedName("id")
+    private String id;
+
+    @Getter
     @SerializedName("tradeMarkNumber")
 
     private int tradeMarkNumber;

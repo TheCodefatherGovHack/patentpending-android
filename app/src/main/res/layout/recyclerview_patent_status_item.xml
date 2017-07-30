@@ -38,7 +38,7 @@
                         style="@style/TypographyLabel"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:background="@drawable/status_background_green"
+                        android:background="@drawable/status_label_background"
                         android:paddingLeft="@dimen/spacing_horizontal"
                         android:paddingRight="@dimen/spacing_horizontal"
                         android:text="Status"
