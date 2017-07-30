@@ -4,7 +4,7 @@
   android:id="@+id/root_view"
   android:layout_width="match_parent"
   android:layout_height="match_parent"
-  android:background="#e9e9e9"
+  android:background="@color/bg"
   tools:context="govhack.thecodefather.patentpending.presentation.MainActivity">
 
   <android.support.v7.widget.RecyclerView
@@ -12,7 +12,86 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:paddingTop="4dp"
-    android:paddingBottom="4dp"/>
+    android:paddingBottom="4dp"
+    android:visibility="gone" />
+
+  <TextView
+    android:id="@+id/tvEmptyView"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_marginBottom="10dp"
+    android:gravity="center"
+    android:text="No patents found."
+    android:visibility="gone" />
+
+  <LinearLayout
+    android:id="@+id/llWelcomeView"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginTop="30dp"
+    android:gravity="center"
+    android:orientation="vertical"
+    android:visibility="visible">
+
+    <TextView
+      style="@style/TypographyHeading"
+      android:layout_width="match_parent"
+      android:layout_height="match_parent"
+      android:layout_marginBottom="10dp"
+      android:gravity="center"
+      android:text="Welcome!" />
+
+    <TextView
+      android:layout_width="match_parent"
+      android:layout_height="match_parent"
+      android:layout_marginBottom="10dp"
+      android:gravity="center"
+      android:text="Search for a patent" />
+
+    <ImageView
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:layout_marginBottom="10dp"
+      android:gravity="center"
+      android:src="@drawable/arrow2" />
+
+    <TextView
+      android:layout_width="match_parent"
+      android:layout_height="match_parent"
+      android:layout_marginBottom="10dp"
+      android:gravity="center"
+      android:text="View estimation trends" />
+
+    <ImageView
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:layout_marginBottom="10dp"
+      android:gravity="center"
+      android:src="@drawable/view_trends" />
+
+    <ImageView
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:layout_marginBottom="10dp"
+      android:layout_marginLeft="10dp"
+      android:gravity="center"
+      android:src="@drawable/arrow1" />
+
+    <Button
+      style="@style/button"
+      android:layout_alignParentTop="true"
+      android:clickable="false"
+      android:text="Follow" />
+
+    <TextView
+      android:layout_width="match_parent"
+      android:layout_height="match_parent"
+      android:layout_marginTop="@dimen/spacing_vertical"
+      android:gravity="center"
+      android:text="...and receive notifications on status updates!" />
+
+  </LinearLayout>
+
 
   <FrameLayout
     android:id="@+id/progress_overlay"
@@ -21,6 +100,7 @@
     android:background="@color/white70"
     android:clickable="true"
     android:visibility="gone">
+
     <ProgressBar
       style="@style/Base.Widget.AppCompat.ProgressBar"
       android:layout_width="wrap_content"
