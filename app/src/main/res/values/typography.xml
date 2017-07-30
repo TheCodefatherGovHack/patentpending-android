@@ -2,20 +2,20 @@
 <resources>
 
     <style name="TypographyHeading">
-        <item name="android:textSize">18dp</item>
+        <item name="android:textSize">16dp</item>
         <item name="android:textColor">@color/dark_grey</item>
         <item name="fontPath">@string/font_path_open_sans_regular</item>
     </style>
 
     <style name="TypographyLabel">
-        <item name="android:textSize">12dp</item>
+        <item name="android:textSize">10dp</item>
         <item name="android:textColor">@color/dark_grey</item>
         <item name="android:textAllCaps">true</item>
         <item name="fontPath">@string/font_path_open_sans_regular</item>
     </style>
 
     <style name="TypographyDisplay1">
-        <item name="android:textSize">12dp</item>
+        <item name="android:textSize">10dp</item>
         <item name="android:textColor">@color/light_grey</item>
         <item name="fontPath">@string/font_path_open_sans_regular</item>
     </style>

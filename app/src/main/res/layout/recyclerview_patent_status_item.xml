@@ -37,12 +37,12 @@
             android:paddingLeft="@dimen/spacing_horizontal"
             android:paddingRight="@dimen/spacing_horizontal"
             android:background="@drawable/status_label_background">
+
             <TextView
               android:id="@+id/tvPatentStatus"
               style="@style/TypographyLabel"
               android:layout_width="wrap_content"
               android:layout_height="wrap_content"
-              android:layout_marginBottom="10dp"
               android:layout_alignParentTop="true"
               android:layout_centerHorizontal="true"
               android:paddingLeft="@dimen/spacing_horizontal"
@@ -70,7 +70,7 @@
 
           <View
             android:layout_width="match_parent"
-            android:layout_height="1dp"
+            android:layout_height="0.5dp"
             android:layout_marginTop="16dp"
             android:layout_marginBottom="16dp"
             android:background="@android:color/darker_gray" />

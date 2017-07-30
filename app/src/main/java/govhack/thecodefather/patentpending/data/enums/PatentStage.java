@@ -47,6 +47,27 @@ public enum PatentStage implements GsonSerialisable {
     return this == UNKNOWN_STAGE_NAME;
   }
 
+  @Override
+  public String toString() {
+    switch (this) {
+      case FILED:
+        return "Filed";
+      case ACCEPTANCE_AND_OPPOSITION_PHASE:
+        return "Acceptance and Opposition Phase";
+      case BEING_EXAMINED:
+        return "Being Examined";
+      case EXPIRED:
+        return "Expired";
+      case REGISTERED:
+        return "Registered";
+      case WAITING_FOR_CONFIRMATION:
+        return "Waiting For Confirmation";
+      default:
+      case UNKNOWN_STAGE_NAME:
+        return "UNKNOWN";
+    }
+  }
+
   @ColorRes
   public int getColorResId() {
     switch (this) {
