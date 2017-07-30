@@ -1,7 +1,5 @@
 package govhack.thecodefather.patentpending.presentation;
 
-import static govhack.thecodefather.patentpending.Constants.SELECTED_PATENT;
-
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
@@ -15,7 +13,15 @@ import android.text.InputType;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
+
 import com.google.gson.Gson;
+
+import org.androidannotations.annotations.AfterViews;
+import org.androidannotations.annotations.EActivity;
+import org.androidannotations.annotations.Fullscreen;
+import org.androidannotations.annotations.UiThread;
+import org.androidannotations.annotations.ViewById;
+
 import govhack.thecodefather.patentpending.R;
 import govhack.thecodefather.patentpending.data.api.ErrorResponse;
 import govhack.thecodefather.patentpending.data.api.HttpCallback2;
@@ -25,13 +31,10 @@ import govhack.thecodefather.patentpending.data.models.PatentDataModel;
 import govhack.thecodefather.patentpending.data.models.SuccessDataModel;
 import govhack.thecodefather.patentpending.presentation.adapter.HorizontalStagesAdapter;
 import govhack.thecodefather.patentpending.utility.ValidationUtililty;
-import org.androidannotations.annotations.AfterViews;
-import org.androidannotations.annotations.EActivity;
-import org.androidannotations.annotations.Fullscreen;
-import org.androidannotations.annotations.UiThread;
-import org.androidannotations.annotations.ViewById;
 import retrofit2.Call;
 import retrofit2.Response;
+
+import static govhack.thecodefather.patentpending.Constants.SELECTED_PATENT;
 
 /**
  * Created by Alberto Camillo on 29/7/17.
@@ -124,7 +127,7 @@ public class PatentDetailActivity extends ActivityBase {
             @Override
             public void onClick(View v) {
                 AlertDialog.Builder builder = new AlertDialog.Builder(PatentDetailActivity.this);
-                builder.setTitle("Receive E-mail notification of " + mSelectedPatent.getTitle());
+                builder.setTitle("Receive E-mail notifications of " + mSelectedPatent.getTitle());
 
                 // Set up the input
                 final EditText input = new EditText(PatentDetailActivity.this);
