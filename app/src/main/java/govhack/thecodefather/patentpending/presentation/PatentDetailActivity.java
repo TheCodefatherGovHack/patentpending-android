@@ -11,9 +11,9 @@ import android.support.v7.widget.LinearSnapHelper;
 import android.support.v7.widget.RecyclerView;
 import android.text.InputType;
 import android.view.View;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.RelativeLayout;
+import android.widget.TextView;
 
 import com.google.gson.Gson;
 
@@ -49,7 +49,12 @@ public class PatentDetailActivity extends ActivityBase {
     @ViewById
     RecyclerView rvPatentStatuses;
     @ViewById
-    Button btnFollow;
+    TextView tvPatentApplNumber;
+    @ViewById
+    TextView tvPatentTitle;
+    @ViewById
+    TextView btnFollow;
+
     private HorizontalStagesAdapter horizontalStagesAdapter;
     private String mUserEmail = "";
     private PatentDataModel mSelectedPatent;
@@ -62,9 +67,14 @@ public class PatentDetailActivity extends ActivityBase {
         Bundle bundle = intent.getExtras();
         String serializedPatent = bundle.getString(SELECTED_PATENT);
         mSelectedPatent = gson.fromJson(serializedPatent, PatentDataModel.class);
-
+        setupPatentViews();
         setupRecyclerView();
         setupFollowButton();
+    }
+
+    private void setupPatentViews() {
+        tvPatentApplNumber.setText(mSelectedPatent.getAustralianApplicationNumber());
+        tvPatentTitle.setText(mSelectedPatent.getTitle());
     }
 
     private void setupRecyclerView() {
