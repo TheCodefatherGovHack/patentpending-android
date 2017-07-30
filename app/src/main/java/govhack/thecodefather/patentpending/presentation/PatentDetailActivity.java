@@ -53,6 +53,8 @@ public class PatentDetailActivity extends ActivityBase {
     @ViewById
     TextView tvPatentTitle;
     @ViewById
+    TextView tvPatentOwnerName;
+    @ViewById
     TextView btnFollow;
 
     private HorizontalStagesAdapter horizontalStagesAdapter;
@@ -75,6 +77,7 @@ public class PatentDetailActivity extends ActivityBase {
     private void setupPatentViews() {
         tvPatentApplNumber.setText(mSelectedPatent.getAustralianApplicationNumber());
         tvPatentTitle.setText(mSelectedPatent.getTitle());
+        tvPatentOwnerName.setText(mSelectedPatent.getApplicantName());
     }
 
     private void setupRecyclerView() {
