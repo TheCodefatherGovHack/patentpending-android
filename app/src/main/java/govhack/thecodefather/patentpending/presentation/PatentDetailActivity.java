@@ -7,6 +7,7 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.LinearSnapHelper;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
+import android.widget.Button;
 
 import com.google.gson.Gson;
 
@@ -27,6 +28,8 @@ import static govhack.thecodefather.patentpending.Constants.SELECTED_PATENT;
 public class PatentDetailActivity extends AppCompatActivity {
     @ViewById
     RecyclerView rvPatentStatuses;
+    @ViewById
+    Button btnFollow;
     private HorizontalStagesAdapter horizontalStagesAdapter;
 
     private PatentDataModel mSelectedPatent;

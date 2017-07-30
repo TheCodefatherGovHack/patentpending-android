@@ -6,10 +6,35 @@
     android:layout_height="match_parent"
     tools:context="govhack.thecodefather.patentpending.presentation.PatentDetailActivity">
 
-    <android.support.v7.widget.RecyclerView
-        android:id="@+id/rvPatentStatuses"
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="150dp"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentStart="true" />
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <Button
+                android:id="@+id/btnFollow"
+                style="?android:attr/borderlessButtonStyle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentTop="true"
+                android:layout_centerHorizontal="true"
+                android:background="@drawable/button_flat_orange"
+                android:text="Follow"
+                android:textColor="@color/white" />
+        </RelativeLayout>
+
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/rvPatentStatuses"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentStart="true" />
+    </LinearLayout>
+
+
 </RelativeLayout>
