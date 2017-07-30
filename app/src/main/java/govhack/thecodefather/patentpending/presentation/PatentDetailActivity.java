@@ -1,12 +1,11 @@
 package govhack.thecodefather.patentpending.presentation;
 
-import static govhack.thecodefather.patentpending.Constants.SELECTED_PATENT;
-
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
+import android.support.design.widget.Snackbar;
 import android.support.v7.app.AlertDialog;
-import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.LinearSnapHelper;
 import android.support.v7.widget.RecyclerView;
@@ -14,7 +13,16 @@ import android.text.InputType;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.RelativeLayout;
+
 import com.google.gson.Gson;
+
+import org.androidannotations.annotations.AfterViews;
+import org.androidannotations.annotations.EActivity;
+import org.androidannotations.annotations.Fullscreen;
+import org.androidannotations.annotations.UiThread;
+import org.androidannotations.annotations.ViewById;
+
 import govhack.thecodefather.patentpending.R;
 import govhack.thecodefather.patentpending.data.api.ErrorResponse;
 import govhack.thecodefather.patentpending.data.api.HttpCallback2;
@@ -23,20 +31,21 @@ import govhack.thecodefather.patentpending.data.models.ErrorDataModel;
 import govhack.thecodefather.patentpending.data.models.PatentDataModel;
 import govhack.thecodefather.patentpending.data.models.SuccessDataModel;
 import govhack.thecodefather.patentpending.presentation.adapter.HorizontalStagesAdapter;
-import org.androidannotations.annotations.AfterViews;
-import org.androidannotations.annotations.EActivity;
-import org.androidannotations.annotations.Fullscreen;
-import org.androidannotations.annotations.ViewById;
+import govhack.thecodefather.patentpending.utility.ValidationUtililty;
 import retrofit2.Call;
 import retrofit2.Response;
+
+import static govhack.thecodefather.patentpending.Constants.SELECTED_PATENT;
 
 /**
  * Created by Alberto Camillo on 29/7/17.
  */
 @Fullscreen
 @EActivity(R.layout.activity_patent_detail)
-public class PatentDetailActivity extends AppCompatActivity {
+public class PatentDetailActivity extends ActivityBase {
 
+    @ViewById(R.id.root_view)
+    RelativeLayout rootView;
     @ViewById
     RecyclerView rvPatentStatuses;
     @ViewById
@@ -120,26 +129,32 @@ public class PatentDetailActivity extends AppCompatActivity {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         mUserEmail = input.getText().toString();
-                        PatentPendingApiClient
-                            .registerEmailForNotification(mUserEmail, mSelectedPatent, new HttpCallback2<SuccessDataModel, ErrorDataModel>(ErrorDataModel.class) {
 
-                                @Override
-                                public void onSuccess(Call<SuccessDataModel> call,
-                                    Response<SuccessDataModel> response) {
+                        if (ValidationUtililty.isValidEmail(mUserEmail)) {
+                            PatentPendingApiClient
+                                    .registerEmailForNotification(mUserEmail, mSelectedPatent, new HttpCallback2<SuccessDataModel, ErrorDataModel>(ErrorDataModel.class) {
 
-                                }
+                                        @Override
+                                        public void onSuccess(Call<SuccessDataModel> call,
+                                                              Response<SuccessDataModel> response) {
+                                            showSnackbar("Great! your e-mail " + mUserEmail + " has been registered!");
+                                        }
 
-                                @Override
-                                public void onFailure(Call<SuccessDataModel> call) {
+                                        @Override
+                                        public void onFailure(Call<SuccessDataModel> call) {
+                                            showSnackbar("Uh-oh an error occurred, please retry");
+                                        }
 
-                                }
+                                        @Override
+                                        protected void onError(Call<SuccessDataModel> call,
+                                                               ErrorResponse<ErrorDataModel> errorResponse) {
+                                            showSnackbar("Uh-oh an error occurred, please retry");
+                                        }
+                                    });
+                        } else {
+                            showSnackbar("Please, insert a valid e-mail address.");
+                        }
 
-                                @Override
-                                protected void onError(Call<SuccessDataModel> call,
-                                    ErrorResponse<ErrorDataModel> errorResponse) {
-
-                                }
-                            });
                     }
                 });
                 builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
@@ -153,5 +168,15 @@ public class PatentDetailActivity extends AppCompatActivity {
             }
         });
 
+    }
+
+    public void showSnackbar(@NonNull String s) {
+        showSnackbar(rootView, s);
+    }
+
+    @UiThread
+    void showSnackbar(@NonNull String s, int duration) {
+        Snackbar snackbar = Snackbar.make(rootView, s, duration);
+        snackbar.show();
     }
 }
