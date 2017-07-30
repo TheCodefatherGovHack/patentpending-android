@@ -13,7 +13,7 @@
       android:id="@+id/cvPatent"
       style="@style/card"
       android:layout_width="300dp"
-      android:layout_height="match_parent"
+      android:layout_height="wrap_content"
       android:layout_alignParentTop="true"
       android:layout_centerHorizontal="true"
       card_view:cardUseCompatPadding="true">
@@ -24,37 +24,65 @@
         android:padding="16dp"
         android:background="@drawable/gradient_recyclerview_patent_item">
 
-        <RelativeLayout
+        <LinearLayout
+          android:id="@+id/rlContainerPatentStatus"
           android:layout_width="match_parent"
-          android:layout_height="match_parent"
-          android:layout_marginTop="5dp"
-          android:layout_below="@+id/rvPatentTitle">
+          android:layout_height="wrap_content"
+          android:background="@drawable/gradient_recyclerview_patent_item"
+          android:orientation="vertical">
 
-
-          <TextView
-            android:id="@+id/tvPatentStatus"
-            style="@style/TypographyLabel"
-            android:layout_width="wrap_content"
+          <RelativeLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="10dp"
-            android:layout_alignParentTop="true"
-            android:layout_centerHorizontal="true"
-            android:paddingLeft="@dimen/spacing_horizontal"
-            android:paddingRight="@dimen/spacing_horizontal"
-            android:background="@drawable/status_label_background"
-            android:text="Status"
-            android:textColor="@color/white" />
+            android:layout_marginTop="5dp"
+            android:layout_below="@+id/rvPatentTitle"
+            android:padding="@dimen/internal_view_padding">
 
-          <TextView
-            android:id="@+id/tvPatentEstimatedDateFinish"
-            android:layout_width="wrap_content"
+            <TextView
+              android:id="@+id/tvPatentStatus"
+              style="@style/TypographyLabel"
+              android:layout_width="wrap_content"
+              android:layout_height="wrap_content"
+              android:layout_marginBottom="10dp"
+              android:layout_alignParentTop="true"
+              android:layout_centerHorizontal="true"
+              android:paddingLeft="@dimen/spacing_horizontal"
+              android:paddingRight="@dimen/spacing_horizontal"
+              android:background="@drawable/status_label_background"
+              android:text="Status"
+              android:textColor="@color/white" />
+
+            <TextView
+              android:id="@+id/tvPatentEstimatedDateFinish"
+              android:layout_width="wrap_content"
+              android:layout_height="wrap_content"
+              android:layout_below="@+id/tvPatentStatus"
+              android:layout_centerHorizontal="true"
+              android:text="Next event"
+              android:textSize="12sp" />
+          </RelativeLayout>
+
+          <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/tvPatentStatus"
-            android:layout_centerHorizontal="true"
-            android:text="Next event"
-            android:textSize="12sp" />
-        </RelativeLayout>
+            android:layout_below="@+id/rlContainerPatentStatus"
+            android:orientation="vertical">
 
+            <View
+              android:layout_width="match_parent"
+              android:layout_height="1dp"
+              android:layout_marginTop="10dp"
+              android:layout_marginBottom="10dp"
+              android:background="@android:color/darker_gray" />
+
+            <ImageView
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:src="@drawable/graph" />
+          </LinearLayout>
+
+
+        </LinearLayout>
 
       </RelativeLayout>
 
