@@ -8,16 +8,18 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.FrameLayout;
 import android.widget.TextView;
-
+import govhack.thecodefather.patentpending.R;
+import govhack.thecodefather.patentpending.data.enums.PatentStage;
+import govhack.thecodefather.patentpending.data.models.StageDataModel;
 import govhack.thecodefather.patentpending.utility.ColorUtility;
 import java.util.List;
-
-import govhack.thecodefather.patentpending.R;
-import govhack.thecodefather.patentpending.data.models.StageDataModel;
+import java.util.Random;
 import lombok.Getter;
 import lombok.val;
 
-/** Created by Alberto Camillo on 29/7/17. */
+/**
+ * Created by Alberto Camillo on 29/7/17.
+ */
 public class HorizontalStagesAdapter
     extends RecyclerView.Adapter<HorizontalStagesAdapter.StageViewHolder> {
 
@@ -50,7 +52,14 @@ public class HorizontalStagesAdapter
       holder.flPatentLabel.getBackground().setColorFilter(color, Mode.DST_ATOP);
     }
 
-    //holder.tvPatentEstimatedDateFinish.setText(stages.get(position).getEstimatedDateOfFinish().toString());
+      holder.tvPatentEstimatedDateFinish.setVisibility(View.VISIBLE);
+    if (patentModel.getStage() == PatentStage.EXPIRED || patentModel.getStage() == PatentStage.REGISTERED) {
+      holder.tvPatentEstimatedDateFinish.setVisibility(View.GONE);
+    } else {
+      holder.tvPatentEstimatedDateFinish.setVisibility(View.VISIBLE);
+      holder.tvPatentEstimatedDateFinish.setText(String.format("est. %d days to go",
+          new Random().nextInt(600) + 1));
+    }
   }
 
   @Override

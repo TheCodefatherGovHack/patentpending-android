@@ -27,16 +27,19 @@ public enum PatentStage implements GsonSerialisable {
 
   @Nullable
   public PatentStage nextStage() {
+    PatentStage result = null;
     switch (this) {
       case FILED:
-        return WAITING_FOR_CONFIRMATION;
+        result = WAITING_FOR_CONFIRMATION;
+        break;
       case WAITING_FOR_CONFIRMATION:
-        return BEING_EXAMINED;
+        result = BEING_EXAMINED;
+        break;
       case ACCEPTANCE_AND_OPPOSITION_PHASE:
-        return REGISTERED;
-      default:
-        return null;
+        result = REGISTERED;
+        break;
     }
+    return result;
   }
 
   public boolean hasNextStage() {
