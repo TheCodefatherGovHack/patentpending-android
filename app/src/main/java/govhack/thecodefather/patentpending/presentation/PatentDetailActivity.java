@@ -79,7 +79,7 @@ public class PatentDetailActivity extends ActivityBase {
     private void setupRecyclerView() {
 
         LinearLayoutManager horizontalLayoutManagaer = new LinearLayoutManager(PatentDetailActivity.this, LinearLayoutManager.HORIZONTAL, false);
-        horizontalStagesAdapter = new HorizontalStagesAdapter(mSelectedPatent.getStages());
+        horizontalStagesAdapter = new HorizontalStagesAdapter(mSelectedPatent.getStages(), this);
         rvPatentStatuses.setAdapter(horizontalStagesAdapter);
         rvPatentStatuses.setLayoutManager(horizontalLayoutManagaer);
 
