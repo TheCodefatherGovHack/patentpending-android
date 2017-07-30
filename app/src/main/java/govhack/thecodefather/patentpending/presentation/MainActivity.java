@@ -13,6 +13,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.FrameLayout;
+import android.widget.LinearLayout;
 
 import com.google.common.collect.ImmutableList;
 
@@ -42,6 +43,9 @@ public class MainActivity extends ActivityBase {
 
     @ViewById(R.id.root_view)
     CoordinatorLayout rootView;
+
+    @ViewById(R.id.llEmptyView)
+    LinearLayout llEmptyView;
 
     @ViewById(R.id.progress_overlay)
     FrameLayout progressOverlay;
@@ -124,7 +128,15 @@ public class MainActivity extends ActivityBase {
 
     @UiThread
     void updatePatents(@Nullable ImmutableList<PatentDataModel> patents) {
-        rvSearchAdapter.updatePatents(patents);
+        if (null==patents || patents.isEmpty()) {
+            rvSearchResults.setVisibility(View.GONE);
+            llEmptyView.setVisibility(View.VISIBLE);
+        }
+        else {
+            rvSearchResults.setVisibility(View.VISIBLE);
+            llEmptyView.setVisibility(View.GONE);
+            rvSearchAdapter.updatePatents(patents);
+        }
     }
 
     public void showSnackbar(@NonNull String s) {
