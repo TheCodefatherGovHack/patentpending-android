@@ -24,14 +24,6 @@
         android:visibility="gone">
 
         <TextView
-            style="@style/TypographyHeading"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_marginBottom="10dp"
-            android:gravity="center"
-            android:text="Welcome!" />
-
-        <TextView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_marginBottom="10dp"
