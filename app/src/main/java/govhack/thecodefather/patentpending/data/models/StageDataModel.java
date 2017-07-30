@@ -57,7 +57,11 @@ public class StageDataModel implements Comparable<StageDataModel> {
         if (finished && stageDataModel.finished) {
             return dateFinished.compareTo(stageDataModel.dateFinished);
         } else if (!finished && !stageDataModel.finished) {
-            return estimatedDateOfFinish.compareTo(estimatedDateOfFinish);
+            if (null != estimatedDateOfFinish) {
+                return estimatedDateOfFinish.compareTo(estimatedDateOfFinish);
+            } else {
+                return -1;
+            }
         } else if (finished) {
             // finished and !stageDataModel.finished
             return -1;

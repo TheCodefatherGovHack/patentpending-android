@@ -1,30 +1,32 @@
 <resources>
 
-  <!-- Base application theme. -->
-  <style name="AppTheme" parent="Theme.AppCompat.Light">
-    <!--<item name="colorPrimary">@color/colorPrimary</item>-->
-    <!--<item name="colorPrimaryDark">@color/colorPrimaryDark</item>-->
-    <item name="colorAccent">@color/orange</item>
-  </style>
+    <!-- Base application theme. -->
+    <style name="AppTheme" parent="Theme.AppCompat.Light">
+        <!--<item name="colorPrimary">@color/colorPrimary</item>-->
+        <!--<item name="colorPrimaryDark">@color/colorPrimaryDark</item>-->
+        <item name="colorAccent">@color/orange</item>
+    </style>
 
-  <style name="AppTheme.NoActionBar">
-    <item name="windowActionBar">false</item>
-    <item name="windowNoTitle">true</item>
-  </style>
+    <style name="AppTheme.NoActionBar">
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+    </style>
 
-  <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
+    <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
 
-  <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
+    <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light">
+        <item name="logo">@mipmap/ic_launcher</item>
+    </style>
 
-  <style name="card">
-    <item name="android:layout_marginTop">@dimen/card_vertical_spacing</item>
-    <item name="android:layout_marginBottom">@dimen/card_vertical_spacing</item>
-    <item name="android:layout_marginStart">@dimen/card_horizontal_spacing</item>
-    <item name="android:layout_marginEnd">@dimen/card_horizontal_spacing</item>
-    <item name="android:layout_marginLeft">@dimen/card_horizontal_spacing</item>
-    <item name="android:layout_marginRight">@dimen/card_horizontal_spacing</item>
-    <item name="cardCornerRadius">@dimen/card_corner_radius</item>
+    <style name="card">
+        <item name="android:layout_marginTop">@dimen/card_vertical_spacing</item>
+        <item name="android:layout_marginBottom">@dimen/card_vertical_spacing</item>
+        <item name="android:layout_marginStart">@dimen/card_horizontal_spacing</item>
+        <item name="android:layout_marginEnd">@dimen/card_horizontal_spacing</item>
+        <item name="android:layout_marginLeft">@dimen/card_horizontal_spacing</item>
+        <item name="android:layout_marginRight">@dimen/card_horizontal_spacing</item>
+        <item name="cardCornerRadius">@dimen/card_corner_radius</item>
 
-  </style>
+    </style>
 
 </resources>

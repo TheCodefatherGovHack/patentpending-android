@@ -1,13 +1,17 @@
 package govhack.thecodefather.patentpending.presentation;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.LinearSnapHelper;
 import android.support.v7.widget.RecyclerView;
+import android.text.InputType;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 
 import com.google.gson.Gson;
 
@@ -22,25 +26,35 @@ import govhack.thecodefather.patentpending.presentation.adapter.HorizontalStages
 
 import static govhack.thecodefather.patentpending.Constants.SELECTED_PATENT;
 
-/** Created by Alberto Camillo on 29/7/17. */
+/**
+ * Created by Alberto Camillo on 29/7/17.
+ */
 @Fullscreen
 @EActivity(R.layout.activity_patent_detail)
 public class PatentDetailActivity extends AppCompatActivity {
+
     @ViewById
     RecyclerView rvPatentStatuses;
     @ViewById
     Button btnFollow;
     private HorizontalStagesAdapter horizontalStagesAdapter;
-
+    private String mUserEmail = "";
     private PatentDataModel mSelectedPatent;
     private final Gson gson = new Gson();
 
     @AfterViews
     void initPatentsDetails() {
+
         Intent intent = this.getIntent();
         Bundle bundle = intent.getExtras();
         String serializedPatent = bundle.getString(SELECTED_PATENT);
         mSelectedPatent = gson.fromJson(serializedPatent, PatentDataModel.class);
+
+        setupRecyclerView();
+        setupFollowButton();
+    }
+
+    private void setupRecyclerView() {
 
         LinearLayoutManager horizontalLayoutManagaer = new LinearLayoutManager(PatentDetailActivity.this, LinearLayoutManager.HORIZONTAL, false);
         horizontalStagesAdapter = new HorizontalStagesAdapter(mSelectedPatent.getStages());
@@ -78,7 +92,58 @@ public class PatentDetailActivity extends AppCompatActivity {
                 return targetPosition;
             }
         };
+
         snapHelper.attachToRecyclerView(rvPatentStatuses);
+    }
+
+    private void setupFollowButton() {
+
+        btnFollow.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                AlertDialog.Builder builder = new AlertDialog.Builder(PatentDetailActivity.this);
+                builder.setTitle("Receive E-mail notification of " + mSelectedPatent.getTitle());
+
+                // Set up the input
+                final EditText input = new EditText(PatentDetailActivity.this);
+
+                // Specify the type of input expected; this, for example, sets the input as a password, and will mask the text
+                input.setInputType(InputType.TYPE_TEXT_VARIATION_EMAIL_ADDRESS);
+                builder.setView(input);
+
+                // Set up the buttons
+                builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        mUserEmail = input.getText().toString();
+//                        PatentPendingApiClient.registerEmailForNotification(mSelectedPatent, mUserEmail, new HttpCallback2<SuccessDataModel, ErrorDataModel>() {
+//                            @Override
+//                            protected void onError(Call<SuccessDataModel> call, ErrorResponse<ErrorDataModel> errorResponse) {
+//
+//                            }
+//
+//                            @Override
+//                            public void onSuccess(Call<SuccessDataModel> call, Response<SuccessDataModel> response) {
+//
+//                            }
+//
+//                            @Override
+//                            public void onFailure(Call<SuccessDataModel> call) {
+//
+//                            }
+//                        });
+                    }
+                });
+                builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.cancel();
+                    }
+                });
+
+                builder.show();
+            }
+        });
 
     }
 }
