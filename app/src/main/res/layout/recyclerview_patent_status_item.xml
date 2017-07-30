@@ -2,8 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:card_view="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:layout_margin="10dp">
+    android:layout_height="wrap_content">
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -12,40 +11,40 @@
         <android.support.v7.widget.CardView
             android:id="@+id/cvPatent"
             android:layout_width="300dp"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_centerHorizontal="true"
             card_view:cardCornerRadius="3dp"
             card_view:cardElevation="6dp"
-            card_view:cardUseCompatPadding="true"
-            android:layout_alignParentTop="true"
-            android:layout_centerHorizontal="true">
+            card_view:cardUseCompatPadding="true">
 
-            <RelativeLayout
+            <LinearLayout
+                android:id="@+id/rlContainerPatentStatus"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@drawable/gradient_recyclerview_patent_item"
-                android:padding="16dp">
+                android:orientation="vertical">
 
                 <RelativeLayout
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
+                    android:layout_height="wrap_content"
                     android:layout_below="@+id/rvPatentTitle"
-                    android:layout_marginTop="5dp">
-
-
+                    android:layout_marginTop="5dp"
+                    android:padding="@dimen/internal_view_padding">
 
                     <TextView
                         android:id="@+id/tvPatentStatus"
                         style="@style/TypographyLabel"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_alignParentTop="true"
+                        android:layout_centerHorizontal="true"
+                        android:layout_marginBottom="10dp"
                         android:background="@drawable/status_background_green"
                         android:paddingLeft="@dimen/spacing_horizontal"
                         android:paddingRight="@dimen/spacing_horizontal"
                         android:text="Status"
-                        android:layout_marginBottom="10dp"
-                        android:textColor="@color/white"
-                        android:layout_alignParentTop="true"
-                        android:layout_centerHorizontal="true" />
+                        android:textColor="@color/white" />
 
                     <TextView
                         android:id="@+id/tvPatentEstimatedDateFinish"
@@ -57,8 +56,28 @@
                         android:textSize="12sp" />
                 </RelativeLayout>
 
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/rlContainerPatentStatus"
+                    android:orientation="vertical">
 
-            </RelativeLayout>
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:layout_marginBottom="10dp"
+                        android:layout_marginTop="10dp"
+                        android:background="@android:color/darker_gray" />
+
+                    <ImageView
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:src="@drawable/graph" />
+                </LinearLayout>
+
+
+            </LinearLayout>
+
 
         </android.support.v7.widget.CardView>
     </RelativeLayout>
