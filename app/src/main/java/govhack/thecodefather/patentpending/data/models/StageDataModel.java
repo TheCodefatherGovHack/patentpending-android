@@ -8,53 +8,62 @@ import com.google.gson.annotations.SerializedName;
 
 import org.joda.time.DateTime;
 
-import govhack.thecodefather.patentpending.data.enums.StageName;
+import govhack.thecodefather.patentpending.data.enums.PatentStage;
 import govhack.thecodefather.patentpending.utility.ValidationUtililty;
 import lombok.Getter;
 
-/** Created by andrewkevin on 29/7/17. */
+
+/**
+ * Created by andrewkevin on 29/7/17.
+ */
 public class StageDataModel implements Comparable<StageDataModel> {
 
-  @SerializedName("stageName")
-  private StageName stageName;
+    @SerializedName("stageName")
+    private PatentStage patentStage;
+    @Getter
+    @SerializedName("finished")
+    private boolean finished;
+    @SerializedName("dateFinished")
+    private String dateFinished;
 
-  @Getter
-  @SerializedName("finished")
-  private Boolean finished;
+    @SerializedName("estimatedDateOfFinish")
+    private String estimatedDateOfFinish;
 
-  @SerializedName("dateFinished")
-  private String dateFinished;
-
-  @SerializedName("estimatedDateOfFinish")
-  private String estimatedDateOfFinish;
-
-  @NonNull
-  public StageName getStageName() {
-    return ValidationUtililty.withDefault(stageName, StageName.UNKNOWN_STAGE_NAME);
-  }
-
-  @Nullable
-  public DateTime getDateFinished() {
-    return TextUtils.isEmpty(dateFinished) ? null : DateTime.parse(dateFinished);
-  }
-
-  @Nullable
-  public DateTime getEstimatedDateOfFinish() {
-    return TextUtils.isEmpty(estimatedDateOfFinish) ? null : DateTime.parse(estimatedDateOfFinish);
-  }
-
-  @Override
-  public int compareTo(@NonNull StageDataModel stageDataModel) {
-    if (finished && stageDataModel.finished) {
-      return dateFinished.compareTo(stageDataModel.dateFinished);
-    } else if (!finished && !stageDataModel.finished) {
-      return estimatedDateOfFinish.compareTo(estimatedDateOfFinish);
-    } else if (finished) {
-      // finished and !stageDataModel.finished
-      return -1;
-    } else {
-      // !finished and stageDataModel.finished
-      return 1;
+    @NonNull
+    public PatentStage getStage() {
+        return ValidationUtililty.withDefault(patentStage, PatentStage.UNKNOWN_STAGE_NAME);
     }
-  }
+
+    public String getDateFinishedRaw() {
+        return dateFinished;
+    }
+
+    public String getEstimatedDateOfFinishRaw() {
+        return estimatedDateOfFinish;
+    }
+
+    @Nullable
+    public DateTime getDateFinished() {
+        return TextUtils.isEmpty(dateFinished) ? null : DateTime.parse(dateFinished);
+    }
+
+    @Nullable
+    public DateTime getEstimatedDateOfFinish() {
+        return TextUtils.isEmpty(estimatedDateOfFinish) ? null : DateTime.parse(estimatedDateOfFinish);
+    }
+
+    @Override
+    public int compareTo(@NonNull StageDataModel stageDataModel) {
+        if (finished && stageDataModel.finished) {
+            return dateFinished.compareTo(stageDataModel.dateFinished);
+        } else if (!finished && !stageDataModel.finished) {
+            return estimatedDateOfFinish.compareTo(estimatedDateOfFinish);
+        } else if (finished) {
+            // finished and !stageDataModel.finished
+            return -1;
+        } else {
+            // !finished and stageDataModel.finished
+            return 1;
+        }
+    }
 }

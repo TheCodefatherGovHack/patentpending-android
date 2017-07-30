@@ -27,8 +27,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import govhack.thecodefather.patentpending.R;
-import govhack.thecodefather.patentpending.data.api.ApiClientFactory;
 import govhack.thecodefather.patentpending.data.api.HttpCallback;
+import govhack.thecodefather.patentpending.data.api.PatentPendingApiClient;
 import govhack.thecodefather.patentpending.data.models.GodDataModel;
 import govhack.thecodefather.patentpending.data.models.PatentDataModel;
 import govhack.thecodefather.patentpending.presentation.adapter.RecyclerViewSearchAdapter;
@@ -40,101 +40,101 @@ import retrofit2.Response;
 @EActivity(R.layout.activity_main)
 public class MainActivity extends ActivityBase {
 
-  @ViewById(R.id.root_view)
-  CoordinatorLayout rootView;
+    @ViewById(R.id.root_view)
+    CoordinatorLayout rootView;
 
-  @ViewById(R.id.progress_overlay)
-  FrameLayout progressOverlay;
+    @ViewById(R.id.progress_overlay)
+    FrameLayout progressOverlay;
 
-  @ViewById RecyclerView rvSearchResults;
-  private RecyclerViewSearchAdapter rvSearchAdapter;
-  private List<PatentDataModel> mPatents = new ArrayList<>();
+    @ViewById
+    RecyclerView rvSearchResults;
+    private RecyclerViewSearchAdapter rvSearchAdapter;
+    private List<PatentDataModel> mPatents = new ArrayList<>();
 
-  @Override
-  public boolean onCreateOptionsMenu(Menu menu) {
-    val inflater = getMenuInflater();
-    inflater.inflate(R.menu.main_search_view, menu);
-    MenuItem searchViewItem = menu.findItem(R.id.action_search);
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        val inflater = getMenuInflater();
+        inflater.inflate(R.menu.main_search_view, menu);
+        MenuItem searchViewItem = menu.findItem(R.id.action_search);
 
-    val searchViewAndroidActionBar = (SearchView) MenuItemCompat.getActionView(searchViewItem);
+        val searchViewAndroidActionBar = (SearchView) MenuItemCompat.getActionView(searchViewItem);
 
-    searchViewAndroidActionBar.setOnQueryTextListener(
-        new SearchView.OnQueryTextListener() {
-          @Override
-          public boolean onQueryTextSubmit(String query) {
-            submitSearchRequest(query);
-            searchViewAndroidActionBar.clearFocus();
-            return true;
-          }
+        searchViewAndroidActionBar.setOnQueryTextListener(
+                new SearchView.OnQueryTextListener() {
+                    @Override
+                    public boolean onQueryTextSubmit(String query) {
+                        submitSearchRequest(query);
+                        searchViewAndroidActionBar.clearFocus();
+                        return true;
+                    }
 
-          @Override
-          public boolean onQueryTextChange(String newText) {
-            return false;
-          }
-        });
+                    @Override
+                    public boolean onQueryTextChange(String newText) {
+                        return false;
+                    }
+                });
 
-    return super.onCreateOptionsMenu(menu);
-  }
+        return super.onCreateOptionsMenu(menu);
+    }
 
-  @AfterViews
-  void initPatentsList() {
-    rvSearchAdapter = new RecyclerViewSearchAdapter(mPatents);
-    rvSearchResults.setAdapter(rvSearchAdapter);
-    rvSearchResults.setLayoutManager(new LinearLayoutManager(this));
-    submitSearchRequest("");
-  }
+    @AfterViews
+    void initPatentsList() {
+        rvSearchAdapter = new RecyclerViewSearchAdapter(mPatents);
+        rvSearchResults.setAdapter(rvSearchAdapter);
+        rvSearchResults.setLayoutManager(new LinearLayoutManager(this));
+        submitSearchRequest("");
+    }
 
-  @Background
-  void submitSearchRequest(@Nullable String query) {
-    if (!TextUtils.isEmpty(query)) {
-      isProgressOverlayVisible(true);
-      ApiClientFactory.getPatentPending()
-          .getGod(query)
-          .enqueue(
-              new HttpCallback<GodDataModel>() {
+    @Background
+    void submitSearchRequest(@Nullable String query) {
+        if (!TextUtils.isEmpty(query)) {
+            isProgressOverlayVisible(true);
+
+            PatentPendingApiClient.searchPatents(query, new HttpCallback<GodDataModel>() {
                 @Override
                 public void onSuccess(Call<GodDataModel> call, Response<GodDataModel> response) {
-                  updatePatents(response.body().getPatents());
+                    val patentDataModels = getPayload().getPatents();
+                    updatePatents(patentDataModels);
                 }
 
                 @Override
                 public void onError(Call<GodDataModel> call, Response<GodDataModel> response) {
-                  showSnackbar("Uh-oh an error occurred, please retry");
+                    showSnackbar("Uh-oh an error occurred, please retry");
                 }
 
                 @Override
                 public void onFailure(Call<GodDataModel> call) {
-                  showSnackbar("Uh-oh an error occurred, please retry");
+                    showSnackbar("Uh-oh an error occurred, please retry");
                 }
 
                 @Override
                 protected void always() {
-                  isProgressOverlayVisible(false);
+                    isProgressOverlayVisible(false);
                 }
-              });
-    } else {
-      updatePatents(null);
+            });
+        } else {
+            updatePatents(null);
+        }
     }
-  }
 
-  @UiThread
-  void isProgressOverlayVisible(boolean b) {
-    progressOverlay.setVisibility(b ? View.VISIBLE : View.GONE);
-  }
+    @UiThread
+    void isProgressOverlayVisible(boolean b) {
+        progressOverlay.setVisibility(b ? View.VISIBLE : View.GONE);
+    }
 
-  @UiThread
-  void updatePatents(@Nullable ImmutableList<PatentDataModel> patents) {
-    rvSearchAdapter.updatePatents(patents);
-  }
+    @UiThread
+    void updatePatents(@Nullable ImmutableList<PatentDataModel> patents) {
+        rvSearchAdapter.updatePatents(patents);
+    }
 
-  @UiThread
-  void showSnackbar(@NonNull String s) {
-    showSnackbar(s, Snackbar.LENGTH_LONG);
-  }
+    public void showSnackbar(@NonNull String s) {
+        showSnackbar(rootView, s);
+    }
 
-  @UiThread
-  void showSnackbar(@NonNull String s, int duration) {
-    Snackbar snackbar = Snackbar.make(rootView, s, duration);
-    snackbar.show();
-  }
+    @UiThread
+    void showSnackbar(@NonNull String s, int duration) {
+        Snackbar snackbar = Snackbar.make(rootView, s, duration);
+        snackbar.show();
+    }
+
 }

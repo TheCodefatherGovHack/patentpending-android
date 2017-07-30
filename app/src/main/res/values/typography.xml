@@ -1,7 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+
   <style name="TypographyHeading">
     <item name="android:textSize">18dp</item>
     <item name="fontPath">@string/font_path_open_sans_regular</item>
   </style>
+
+  <style name="TypographyLabel">
+    <item name="android:textSize">10dp</item>
+    <item name="android:textAllCaps">true</item>
+    <item name="fontPath">@string/font_path_open_sans_regular</item>
+  </style>
+
+  <style name="TypographyDisplay1">
+    <item name="android:textSize">10dp</item>
+    <item name="fontPath">@string/font_path_open_sans_regular</item>
+  </style>
+
 </resources>

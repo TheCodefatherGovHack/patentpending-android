@@ -9,6 +9,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.google.common.collect.ImmutableList;
@@ -19,88 +20,97 @@ import java.util.List;
 import govhack.thecodefather.patentpending.R;
 import govhack.thecodefather.patentpending.data.models.PatentDataModel;
 import govhack.thecodefather.patentpending.presentation.PatentDetailActivity_;
+import lombok.val;
 
 import static android.content.ContentValues.TAG;
 import static govhack.thecodefather.patentpending.Constants.SELECTED_PATENT;
 
-/** Created by Alberto Camillo on 29/7/17. */
-public class RecyclerViewSearchAdapter
-    extends RecyclerView.Adapter<RecyclerViewSearchAdapter.PatentViewHolder> {
+/**
+ * Created by Alberto Camillo on 29/7/17.
+ */
 
-  private List<PatentDataModel> patents;
+public class RecyclerViewSearchAdapter extends
+        RecyclerView.Adapter<RecyclerViewSearchAdapter.PatentViewHolder> {
 
-  public RecyclerViewSearchAdapter(List<PatentDataModel> patents) {
-    this.patents = patents;
-  }
+    List<PatentDataModel> mPatents;
 
-  @Override
-  public PatentViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-    View v =
-        LayoutInflater.from(parent.getContext())
-            .inflate(R.layout.recyclerview_patent_item, parent, false);
-    PatentViewHolder pvh = new PatentViewHolder(v);
-    return pvh;
-  }
-
-  @Override
-  public void onBindViewHolder(PatentViewHolder holder, int position) {
-    holder.tvPatentTitle.setText(patents.get(position).getTitle());
-    holder.tvPatentStatus.setText(patents.get(position).getTitle());
-  }
-
-  @Override
-  public int getItemCount() {
-    return patents.size();
-  }
-
-  @Override
-  public void onAttachedToRecyclerView(RecyclerView recyclerView) {
-    super.onAttachedToRecyclerView(recyclerView);
-  }
-
-  public void updatePatents(@Nullable ImmutableList<PatentDataModel> newPatents) {
-    patents.clear();
-    if (null != newPatents && !newPatents.isEmpty()) {
-      patents.addAll(newPatents);
+    public RecyclerViewSearchAdapter(List<PatentDataModel> mPatents) {
+        this.mPatents = mPatents;
     }
-    notifyDataSetChanged();
-  }
 
-  public class PatentViewHolder extends RecyclerView.ViewHolder {
+    @Override
+    public PatentViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
 
-    private CardView cvPatent;
-    private TextView tvPatentTitle;
-    private TextView tvPatentStatus;
-    private TextView tvPatentNextEvent;
-    private PatentDataModel selectedPatent;
-
-    PatentViewHolder(View itemView) {
-      super(itemView);
-      cvPatent = (CardView) itemView.findViewById(R.id.cvPatent);
-      tvPatentTitle = (TextView) itemView.findViewById(R.id.tvPatentTitle);
-      tvPatentStatus = (TextView) itemView.findViewById(R.id.tvPatentStatus);
-      tvPatentNextEvent = (TextView) itemView.findViewById(R.id.tvPatentNextEvent);
-
-      final Gson gson = new Gson();
-
-      itemView.setOnClickListener(
-          new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-              Context context = v.getContext();
-              Log.d(
-                  TAG,
-                  "onClick "
-                      + getAdapterPosition()
-                      + " "
-                      + patents.get(getAdapterPosition()).getTitle());
-              final Intent i = new Intent(context, PatentDetailActivity_.class);
-              String userJson = gson.toJson(patents.get(getAdapterPosition()));
-
-              i.putExtra(SELECTED_PATENT, userJson);
-              context.startActivity(i);
-            }
-          });
+        View v = LayoutInflater.from(parent.getContext())
+                .inflate(R.layout.recyclerview_patent_item, parent, false);
+        PatentViewHolder pvh = new PatentViewHolder(v);
+        return pvh;
     }
-  }
+
+    @Override
+    public void onBindViewHolder(PatentViewHolder holder, int position) {
+        val patentModel = mPatents.get(position);
+        holder.tvPatentTitle.setText(patentModel.getTitle());
+        holder.tvPatentStatus.setText(patentModel.getCurrentStage().toString());
+        holder.tvPatentNextStage.setText(patentModel.nextStageDisplayString());
+    }
+
+    @Override
+    public int getItemCount() {
+        return mPatents.size();
+    }
+
+    @Override
+    public void onAttachedToRecyclerView(RecyclerView recyclerView) {
+        super.onAttachedToRecyclerView(recyclerView);
+    }
+
+    public void updatePatents(@Nullable ImmutableList<PatentDataModel> newPatents) {
+        mPatents.clear();
+        if (null != newPatents && !newPatents.isEmpty()) {
+            mPatents.addAll(newPatents);
+        }
+        notifyDataSetChanged();
+    }
+
+
+    public class PatentViewHolder extends RecyclerView.ViewHolder {
+
+        CardView cvPatent;
+        TextView tvPatentTitle;
+        ImageView ivNotification;
+        TextView tvPatentStatus;
+        TextView tvPatentNextStage;
+
+        PatentViewHolder(View itemView) {
+            super(itemView);
+            cvPatent = (CardView) itemView.findViewById(R.id.cvPatent);
+            tvPatentTitle = (TextView) itemView.findViewById(R.id.tvPatentTitle);
+            tvPatentStatus = (TextView) itemView.findViewById(R.id.tvPatentStatus);
+
+            final Gson gson = new Gson();
+
+            itemView.setOnClickListener(
+                    new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            Context context = v.getContext();
+                            Log.d(
+                                    TAG,
+                                    "onClick "
+                                            + getAdapterPosition()
+                                            + " "
+                                            + mPatents.get(getAdapterPosition()).getTitle());
+                            final Intent i = new Intent(context, PatentDetailActivity_.class);
+                            String userJson = gson.toJson(mPatents.get(getAdapterPosition()));
+
+                            i.putExtra(SELECTED_PATENT, userJson);
+                            context.startActivity(i);
+                        }
+                    });
+            ivNotification = (ImageView) itemView.findViewById(R.id.ivNotification);
+            tvPatentStatus = (TextView) itemView.findViewById(R.id.tvPatentStatus);
+            tvPatentNextStage = (TextView) itemView.findViewById(R.id.tvPatentNextStage);
+        }
+    }
 }

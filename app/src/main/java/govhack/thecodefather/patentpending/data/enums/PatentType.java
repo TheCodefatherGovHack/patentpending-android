@@ -12,5 +12,9 @@ public enum PatentType implements GsonSerialisable {
   TRADEMARK,
   @SerializedName("patent")
   PATENT,
-  UNKNOWN_PATENT_TYPE
+  UNKNOWN_PATENT_TYPE;
+
+  public boolean isUnknown() {
+    return this == UNKNOWN_PATENT_TYPE;
+  }
 }

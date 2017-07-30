@@ -32,7 +32,7 @@ public class HorizontalStagesAdapter
 
   @Override
   public void onBindViewHolder(HorizontalStagesAdapter.StageViewHolder holder, int position) {
-    holder.tvPatentStatus.setText(stages.get(position).getStageName().toString());
+    holder.tvPatentStatus.setText(stages.get(position).getStage().toString());
     //holder.tvPatentEstimatedDateFinish.setText(stages.get(position).getEstimatedDateOfFinish().toString());
   }
 
