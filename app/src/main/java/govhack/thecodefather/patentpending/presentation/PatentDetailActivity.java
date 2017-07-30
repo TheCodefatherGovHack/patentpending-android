@@ -1,5 +1,7 @@
 package govhack.thecodefather.patentpending.presentation;
 
+import static govhack.thecodefather.patentpending.Constants.SELECTED_PATENT;
+
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
@@ -12,19 +14,21 @@ import android.text.InputType;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-
 import com.google.gson.Gson;
-
+import govhack.thecodefather.patentpending.R;
+import govhack.thecodefather.patentpending.data.api.ErrorResponse;
+import govhack.thecodefather.patentpending.data.api.HttpCallback2;
+import govhack.thecodefather.patentpending.data.api.PatentPendingApiClient;
+import govhack.thecodefather.patentpending.data.models.ErrorDataModel;
+import govhack.thecodefather.patentpending.data.models.PatentDataModel;
+import govhack.thecodefather.patentpending.data.models.SuccessDataModel;
+import govhack.thecodefather.patentpending.presentation.adapter.HorizontalStagesAdapter;
 import org.androidannotations.annotations.AfterViews;
 import org.androidannotations.annotations.EActivity;
 import org.androidannotations.annotations.Fullscreen;
 import org.androidannotations.annotations.ViewById;
-
-import govhack.thecodefather.patentpending.R;
-import govhack.thecodefather.patentpending.data.models.PatentDataModel;
-import govhack.thecodefather.patentpending.presentation.adapter.HorizontalStagesAdapter;
-
-import static govhack.thecodefather.patentpending.Constants.SELECTED_PATENT;
+import retrofit2.Call;
+import retrofit2.Response;
 
 /**
  * Created by Alberto Camillo on 29/7/17.
@@ -116,22 +120,26 @@ public class PatentDetailActivity extends AppCompatActivity {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         mUserEmail = input.getText().toString();
-//                        PatentPendingApiClient.registerEmailForNotification(mSelectedPatent, mUserEmail, new HttpCallback2<SuccessDataModel, ErrorDataModel>() {
-//                            @Override
-//                            protected void onError(Call<SuccessDataModel> call, ErrorResponse<ErrorDataModel> errorResponse) {
-//
-//                            }
-//
-//                            @Override
-//                            public void onSuccess(Call<SuccessDataModel> call, Response<SuccessDataModel> response) {
-//
-//                            }
-//
-//                            @Override
-//                            public void onFailure(Call<SuccessDataModel> call) {
-//
-//                            }
-//                        });
+                        PatentPendingApiClient
+                            .registerEmailForNotification(mUserEmail, mSelectedPatent, new HttpCallback2<SuccessDataModel, ErrorDataModel>(ErrorDataModel.class) {
+
+                                @Override
+                                public void onSuccess(Call<SuccessDataModel> call,
+                                    Response<SuccessDataModel> response) {
+
+                                }
+
+                                @Override
+                                public void onFailure(Call<SuccessDataModel> call) {
+
+                                }
+
+                                @Override
+                                protected void onError(Call<SuccessDataModel> call,
+                                    ErrorResponse<ErrorDataModel> errorResponse) {
+
+                                }
+                            });
                     }
                 });
                 builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
